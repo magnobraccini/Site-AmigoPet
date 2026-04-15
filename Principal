@@ -1,0 +1,1116 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Amigo Pet Agropet – Cuidando com Dedicação e Carinho</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,400&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --navy: #1a2e6e;
+      --navy-dark: #0f1d4a;
+      --navy-light: #2a4090;
+      --amber: #f5a623;
+      --amber-light: #ffc857;
+      --amber-dark: #d4891a;
+      --white: #ffffff;
+      --off-white: #f8f9fc;
+      --gray-light: #edf0f7;
+      --gray: #8892aa;
+      --text: #1c2340;
+      --radius: 16px;
+      --radius-sm: 8px;
+      --shadow: 0 8px 32px rgba(26,46,110,0.12);
+      --shadow-lg: 0 20px 60px rgba(26,46,110,0.18);
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      color: var(--text);
+      background: var(--white);
+      overflow-x: hidden;
+    }
+
+    h1,h2,h3,h4 { font-family: 'Sora', sans-serif; }
+
+    /* ───── NAVBAR ───── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+      background: rgba(255,255,255,0.92);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid rgba(26,46,110,0.08);
+      padding: 0 5%;
+      height: 70px;
+      display: flex; align-items: center; justify-content: space-between;
+      transition: box-shadow .3s;
+    }
+    nav.scrolled { box-shadow: var(--shadow); }
+
+    .nav-logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+    .nav-logo-icon {
+      width: 44px; height: 44px; border-radius: 50%;
+      background: var(--navy);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 22px;
+    }
+    .nav-logo-text { font-family: 'Sora', sans-serif; font-weight: 700; font-size: 1.05rem; color: var(--navy); line-height: 1.1; }
+    .nav-logo-sub { font-size: .7rem; color: var(--amber-dark); font-weight: 600; letter-spacing: .05em; text-transform: uppercase; }
+
+    .nav-links { display: flex; gap: 2rem; list-style: none; }
+    .nav-links a { text-decoration: none; color: var(--text); font-size: .9rem; font-weight: 500; transition: color .2s; position: relative; }
+    .nav-links a::after { content:''; position:absolute; bottom:-3px; left:0; width:0; height:2px; background:var(--amber); transition: width .3s; border-radius:2px; }
+    .nav-links a:hover { color: var(--navy); }
+    .nav-links a:hover::after { width: 100%; }
+
+    .nav-cta {
+      background: var(--amber); color: var(--navy-dark); font-family: 'Sora', sans-serif;
+      font-weight: 700; font-size: .85rem; padding: 10px 22px; border-radius: 50px;
+      text-decoration: none; transition: transform .2s, box-shadow .2s;
+      box-shadow: 0 4px 16px rgba(245,166,35,.35);
+    }
+    .nav-cta:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(245,166,35,.45); }
+
+    .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 4px; }
+    .hamburger span { width: 24px; height: 2px; background: var(--navy); border-radius: 2px; transition: .3s; }
+
+    /* ───── HERO ───── */
+    #hero {
+      min-height: 100vh;
+      background: linear-gradient(135deg, var(--navy-dark) 0%, var(--navy) 50%, var(--navy-light) 100%);
+      display: flex; align-items: center;
+      padding: 90px 5% 60px;
+      position: relative; overflow: hidden;
+    }
+
+    .hero-bg-shapes { position: absolute; inset: 0; overflow: hidden; pointer-events: none; }
+    .hero-bg-shapes::before {
+      content:''; position:absolute; width:500px; height:500px; border-radius:50%;
+      background: radial-gradient(circle, rgba(245,166,35,.15) 0%, transparent 70%);
+      top: -100px; right: -100px;
+      animation: pulse 6s ease-in-out infinite;
+    }
+    .hero-bg-shapes::after {
+      content:''; position:absolute; width:300px; height:300px; border-radius:50%;
+      background: radial-gradient(circle, rgba(255,255,255,.06) 0%, transparent 70%);
+      bottom: 50px; left: 10%;
+      animation: pulse 8s ease-in-out infinite reverse;
+    }
+    @keyframes pulse { 0%,100%{transform:scale(1)} 50%{transform:scale(1.15)} }
+
+    .hero-content { max-width: 1200px; margin: 0 auto; width: 100%; display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; position: relative; z-index: 1; }
+
+    .hero-badge {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: rgba(245,166,35,.2); border: 1px solid rgba(245,166,35,.4);
+      color: var(--amber-light); padding: 6px 16px; border-radius: 50px;
+      font-size: .8rem; font-weight: 600; letter-spacing: .05em; margin-bottom: 24px;
+      animation: fadeUp .6s ease both;
+    }
+    .hero-badge::before { content: '🐾'; }
+
+    .hero-title {
+      font-size: clamp(2.2rem, 4vw, 3.5rem); font-weight: 800;
+      color: var(--white); line-height: 1.1; margin-bottom: 20px;
+      animation: fadeUp .6s .1s ease both;
+    }
+    .hero-title span { color: var(--amber); }
+
+    .hero-desc {
+      color: rgba(255,255,255,.75); font-size: 1.05rem; line-height: 1.7;
+      margin-bottom: 36px; animation: fadeUp .6s .2s ease both;
+    }
+
+    .hero-btns { display: flex; gap: 16px; flex-wrap: wrap; animation: fadeUp .6s .3s ease both; }
+    .btn-primary {
+      background: var(--amber); color: var(--navy-dark);
+      padding: 14px 28px; border-radius: 50px; font-family: 'Sora', sans-serif;
+      font-weight: 700; font-size: .95rem; text-decoration: none;
+      transition: transform .2s, box-shadow .2s;
+      box-shadow: 0 6px 24px rgba(245,166,35,.4);
+    }
+    .btn-primary:hover { transform: translateY(-3px); box-shadow: 0 12px 32px rgba(245,166,35,.5); }
+    .btn-secondary {
+      background: rgba(255,255,255,.1); color: var(--white); border: 1.5px solid rgba(255,255,255,.3);
+      padding: 14px 28px; border-radius: 50px; font-family: 'Sora', sans-serif;
+      font-weight: 600; font-size: .95rem; text-decoration: none;
+      transition: background .2s, border-color .2s;
+    }
+    .btn-secondary:hover { background: rgba(255,255,255,.18); border-color: rgba(255,255,255,.6); }
+
+    .hero-stats { display: flex; gap: 32px; margin-top: 40px; animation: fadeUp .6s .4s ease both; }
+    .hero-stat { text-align: center; }
+    .hero-stat strong { display: block; font-family: 'Sora', sans-serif; font-size: 1.8rem; font-weight: 800; color: var(--amber); }
+    .hero-stat span { font-size: .8rem; color: rgba(255,255,255,.6); }
+
+    .hero-card {
+      background: rgba(255,255,255,.07); backdrop-filter: blur(12px);
+      border: 1px solid rgba(255,255,255,.15); border-radius: 24px;
+      padding: 32px; animation: fadeUp .6s .2s ease both;
+    }
+
+    .hero-doc-photo {
+      width: 100%; border-radius: 16px; object-fit: cover; height: 280px;
+      border: 3px solid rgba(245,166,35,.4);
+    }
+    .hero-doc-info {
+      margin-top: 20px; padding-top: 20px;
+      border-top: 1px solid rgba(255,255,255,.1);
+      display: flex; align-items: center; gap: 16px;
+    }
+    .doc-avatar { width: 52px; height: 52px; border-radius: 50%; border: 2px solid var(--amber); overflow: hidden; flex-shrink: 0; }
+    .doc-avatar img { width: 100%; height: 100%; object-fit: cover; object-position: center top; }
+    .doc-name { font-family: 'Sora', sans-serif; font-weight: 700; color: var(--white); font-size: 1rem; }
+    .doc-title { font-size: .8rem; color: var(--amber-light); }
+    .doc-badge { margin-left: auto; background: rgba(245,166,35,.2); border: 1px solid var(--amber); border-radius: 6px; padding: 4px 10px; font-size: .7rem; color: var(--amber-light); font-weight: 600; }
+
+    .hero-features { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 16px; }
+    .hero-feature {
+      display: flex; align-items: center; gap: 8px;
+      color: rgba(255,255,255,.8); font-size: .82rem;
+    }
+    .hero-feature::before { content: '✓'; color: var(--amber); font-weight: 700; font-size: .9rem; }
+
+    @keyframes fadeUp { from{opacity:0;transform:translateY(20px)} to{opacity:1;transform:translateY(0)} }
+
+    /* ───── SECTION COMMONS ───── */
+    section { padding: 80px 5%; }
+    .section-label {
+      display: inline-flex; align-items: center; gap: 6px;
+      background: rgba(26,46,110,.06); color: var(--navy);
+      padding: 5px 14px; border-radius: 50px; font-size: .75rem;
+      font-weight: 700; letter-spacing: .08em; text-transform: uppercase; margin-bottom: 14px;
+    }
+    .section-title { font-size: clamp(1.8rem, 3vw, 2.6rem); font-weight: 800; color: var(--navy-dark); line-height: 1.2; margin-bottom: 16px; }
+    .section-title span { color: var(--amber-dark); }
+    .section-desc { color: var(--gray); font-size: 1rem; line-height: 1.7; max-width: 520px; }
+    .section-header { margin-bottom: 50px; }
+    .center { text-align: center; }
+    .center .section-desc { margin: 0 auto; }
+
+    .container { max-width: 1200px; margin: 0 auto; }
+
+    /* ───── SERVICES ───── */
+    #servicos { background: var(--off-white); }
+
+    .services-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 24px; }
+
+    .service-card {
+      background: var(--white); border-radius: var(--radius); padding: 32px 28px;
+      box-shadow: var(--shadow); border: 1px solid rgba(26,46,110,.06);
+      transition: transform .3s, box-shadow .3s;
+      position: relative; overflow: hidden;
+    }
+    .service-card::before {
+      content:''; position:absolute; top:0; left:0; right:0; height:4px;
+      background: linear-gradient(90deg, var(--navy), var(--amber));
+      transform: scaleX(0); transform-origin: left; transition: transform .3s;
+    }
+    .service-card:hover { transform: translateY(-6px); box-shadow: var(--shadow-lg); }
+    .service-card:hover::before { transform: scaleX(1); }
+
+    .service-icon {
+      width: 56px; height: 56px; border-radius: 14px;
+      background: linear-gradient(135deg, var(--navy), var(--navy-light));
+      display: flex; align-items: center; justify-content: center;
+      font-size: 26px; margin-bottom: 20px;
+      box-shadow: 0 6px 20px rgba(26,46,110,.25);
+    }
+    .service-card h3 { font-size: 1.1rem; font-weight: 700; color: var(--navy-dark); margin-bottom: 10px; }
+    .service-card p { color: var(--gray); font-size: .9rem; line-height: 1.6; margin-bottom: 16px; }
+    .service-tag { display: inline-block; background: rgba(245,166,35,.12); color: var(--amber-dark); padding: 4px 10px; border-radius: 50px; font-size: .75rem; font-weight: 600; }
+
+    /* ───── DOCTOR ───── */
+    #medico { background: var(--white); }
+
+    .doctor-grid { display: grid; grid-template-columns: 1fr 1.4fr; gap: 60px; align-items: center; }
+
+    .doctor-photo-wrap { position: relative; }
+    .doctor-photo-bg {
+      width: 100%; border-radius: 24px; overflow: hidden;
+      box-shadow: var(--shadow-lg);
+      aspect-ratio: 3/4;
+    }
+    .doctor-photo-bg img { width: 100%; height: 100%; object-fit: cover; object-position: center top; }
+    .doctor-photo-badge {
+      position: absolute; bottom: -16px; right: -16px;
+      background: var(--amber); border-radius: 16px; padding: 16px 20px;
+      box-shadow: 0 8px 24px rgba(245,166,35,.4); text-align: center;
+    }
+    .doctor-photo-badge strong { display: block; font-family: 'Sora', sans-serif; font-size: 1.8rem; font-weight: 800; color: var(--navy-dark); }
+    .doctor-photo-badge span { font-size: .75rem; color: var(--navy); font-weight: 600; }
+
+    .doctor-qualities { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 32px; }
+    .quality-item {
+      display: flex; align-items: flex-start; gap: 12px;
+      background: var(--off-white); border-radius: var(--radius-sm); padding: 16px;
+    }
+    .quality-icon { font-size: 1.5rem; flex-shrink: 0; }
+    .quality-text h4 { font-size: .9rem; font-weight: 700; color: var(--navy-dark); margin-bottom: 2px; }
+    .quality-text p { font-size: .78rem; color: var(--gray); line-height: 1.4; }
+
+    /* ───── CATALOG ───── */
+    #catalogo { background: var(--off-white); }
+
+    .catalog-tabs { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 36px; }
+    .tab-btn {
+      padding: 8px 20px; border-radius: 50px; border: 1.5px solid rgba(26,46,110,.15);
+      background: var(--white); color: var(--gray); font-family: 'Sora', sans-serif;
+      font-weight: 600; font-size: .85rem; cursor: pointer; transition: .2s;
+    }
+    .tab-btn.active, .tab-btn:hover { background: var(--navy); border-color: var(--navy); color: var(--white); }
+
+    .catalog-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 20px; }
+
+    .product-card {
+      background: var(--white); border-radius: var(--radius); overflow: hidden;
+      box-shadow: 0 2px 16px rgba(26,46,110,.08); transition: transform .3s, box-shadow .3s;
+    }
+    .product-card:hover { transform: translateY(-4px); box-shadow: var(--shadow); }
+
+    .product-img {
+      height: 160px; background: linear-gradient(135deg, var(--off-white), var(--gray-light));
+      display: flex; align-items: center; justify-content: center; font-size: 56px;
+      position: relative;
+    }
+    .product-badge-new {
+      position: absolute; top: 10px; left: 10px;
+      background: var(--amber); color: var(--navy-dark); font-size: .65rem;
+      font-weight: 700; padding: 3px 8px; border-radius: 50px;
+    }
+    .product-info { padding: 16px; }
+    .product-info h4 { font-size: .92rem; font-weight: 700; color: var(--navy-dark); margin-bottom: 4px; }
+    .product-info p { font-size: .8rem; color: var(--gray); margin-bottom: 12px; }
+    .product-footer { display: flex; align-items: center; justify-content: space-between; }
+    .product-contact-btn {
+      background: var(--navy); color: var(--white); border: none;
+      padding: 7px 14px; border-radius: 50px; font-size: .78rem; font-weight: 600;
+      cursor: pointer; text-decoration: none; transition: background .2s;
+    }
+    .product-contact-btn:hover { background: var(--navy-light); }
+    .delivery-tag { font-size: .72rem; color: var(--amber-dark); font-weight: 600; }
+
+    /* ───── BOOKING ───── */
+    #agendamento {
+      background: linear-gradient(135deg, var(--navy-dark), var(--navy));
+      position: relative; overflow: hidden;
+    }
+    #agendamento::before {
+      content:''; position:absolute; top:-200px; right:-200px;
+      width: 500px; height: 500px; border-radius: 50%;
+      background: radial-gradient(circle, rgba(245,166,35,.1) 0%, transparent 70%);
+    }
+
+    #agendamento .section-title { color: var(--white); }
+    #agendamento .section-label { background: rgba(245,166,35,.2); color: var(--amber-light); }
+    #agendamento .section-desc { color: rgba(255,255,255,.65); }
+
+    .booking-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: start; position: relative; z-index: 1; }
+
+    .booking-form {
+      background: rgba(255,255,255,.08); backdrop-filter: blur(12px);
+      border: 1px solid rgba(255,255,255,.15); border-radius: 24px; padding: 36px;
+    }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 16px; }
+    .form-group { margin-bottom: 16px; }
+    .form-group label { display: block; font-size: .82rem; font-weight: 600; color: rgba(255,255,255,.8); margin-bottom: 6px; }
+    .form-group input, .form-group select, .form-group textarea {
+      width: 100%; padding: 12px 16px; border-radius: var(--radius-sm);
+      background: rgba(255,255,255,.1); border: 1.5px solid rgba(255,255,255,.2);
+      color: var(--white); font-family: 'DM Sans', sans-serif; font-size: .9rem;
+      outline: none; transition: border-color .2s;
+    }
+    .form-group input::placeholder, .form-group textarea::placeholder { color: rgba(255,255,255,.4); }
+    .form-group input:focus, .form-group select:focus, .form-group textarea:focus { border-color: var(--amber); }
+    .form-group select option { background: var(--navy-dark); color: var(--white); }
+    .form-group textarea { resize: none; height: 90px; }
+
+    .submit-btn {
+      width: 100%; padding: 15px; background: var(--amber);
+      color: var(--navy-dark); font-family: 'Sora', sans-serif; font-weight: 700;
+      font-size: 1rem; border: none; border-radius: 50px; cursor: pointer;
+      transition: transform .2s, box-shadow .2s;
+      box-shadow: 0 6px 24px rgba(245,166,35,.4);
+    }
+    .submit-btn:hover { transform: translateY(-2px); box-shadow: 0 12px 32px rgba(245,166,35,.5); }
+
+    .booking-info { padding-top: 8px; }
+    .booking-info-item {
+      display: flex; gap: 16px; align-items: flex-start;
+      background: rgba(255,255,255,.06); border-radius: var(--radius-sm);
+      padding: 18px; margin-bottom: 12px; border: 1px solid rgba(255,255,255,.08);
+    }
+    .booking-info-icon { font-size: 1.4rem; flex-shrink: 0; }
+    .booking-info-item h4 { font-size: .9rem; font-weight: 700; color: var(--white); margin-bottom: 2px; }
+    .booking-info-item p { font-size: .82rem; color: rgba(255,255,255,.65); line-height: 1.5; }
+
+    /* ───── MAP ───── */
+    #localizacao { background: var(--white); }
+
+    .map-grid { display: grid; grid-template-columns: 1fr 1.5fr; gap: 50px; align-items: center; }
+
+    .map-info-item { display: flex; gap: 14px; margin-bottom: 22px; align-items: flex-start; }
+    .map-icon {
+      width: 44px; height: 44px; background: rgba(26,46,110,.08); border-radius: 10px;
+      display: flex; align-items: center; justify-content: center; font-size: 1.2rem; flex-shrink: 0;
+    }
+    .map-info-item h4 { font-size: .9rem; font-weight: 700; color: var(--navy-dark); margin-bottom: 2px; }
+    .map-info-item p { font-size: .85rem; color: var(--gray); line-height: 1.5; }
+
+    .map-frame-wrap { border-radius: 20px; overflow: hidden; box-shadow: var(--shadow-lg); height: 400px; }
+    .map-frame-wrap iframe { width: 100%; height: 100%; border: none; }
+
+    /* ───── CONTACT FLOAT ───── */
+    .float-btns { position: fixed; bottom: 24px; right: 24px; z-index: 500; display: flex; flex-direction: column; gap: 12px; }
+    .float-btn {
+      width: 52px; height: 52px; border-radius: 50%; border: none; cursor: pointer;
+      display: flex; align-items: center; justify-content: center; font-size: 1.3rem;
+      box-shadow: 0 4px 20px rgba(0,0,0,.2); transition: transform .2s;
+      text-decoration: none;
+    }
+    .float-btn:hover { transform: scale(1.1); }
+    .float-btn.whatsapp { background: #25d366; color: white; }
+    .float-btn.instagram { background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888); color: white; }
+    .float-btn.phone { background: var(--navy); color: white; display: none; }
+
+    /* ───── FOOTER ───── */
+    footer {
+      background: var(--navy-dark); color: rgba(255,255,255,.7);
+      padding: 60px 5% 30px;
+    }
+    .footer-grid { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 2fr 1fr 1fr 1.5fr; gap: 40px; margin-bottom: 40px; }
+    footer h4 { font-family: 'Sora', sans-serif; color: var(--white); font-size: .95rem; margin-bottom: 16px; }
+    footer p, footer a { font-size: .85rem; line-height: 1.8; color: rgba(255,255,255,.6); text-decoration: none; display: block; }
+    footer a:hover { color: var(--amber); }
+    .footer-bottom { border-top: 1px solid rgba(255,255,255,.1); padding-top: 24px; max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; font-size: .8rem; }
+    .footer-logo-text { font-family: 'Sora', sans-serif; font-weight: 800; font-size: 1.2rem; color: var(--white); }
+    .footer-logo-sub { font-size: .72rem; color: var(--amber); letter-spacing: .1em; text-transform: uppercase; }
+
+    /* ───── HOURS PILL ───── */
+    .hours-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+    .hours-item { background: rgba(255,255,255,.05); border-radius: 8px; padding: 10px 14px; }
+    .hours-item .day { font-size: .75rem; color: var(--amber-light); font-weight: 700; text-transform: uppercase; letter-spacing: .05em; }
+    .hours-item .time { font-size: .82rem; color: rgba(255,255,255,.7); }
+
+    /* ───── TOAST ───── */
+    .toast {
+      position: fixed; bottom: 100px; right: 24px; z-index: 2000;
+      background: var(--white); border-radius: var(--radius-sm); padding: 16px 20px;
+      box-shadow: var(--shadow-lg); display: flex; align-items: center; gap: 12px;
+      transform: translateX(120%); transition: transform .4s ease; max-width: 320px;
+      border-left: 4px solid #25d366;
+    }
+    .toast.show { transform: translateX(0); }
+    .toast-icon { font-size: 1.4rem; }
+    .toast h4 { font-size: .9rem; font-weight: 700; color: var(--navy-dark); }
+    .toast p { font-size: .78rem; color: var(--gray); }
+
+    /* ───── MOBILE MENU ───── */
+    .mobile-nav {
+      display: none; position: fixed; top: 70px; left: 0; right: 0; z-index: 999;
+      background: var(--white); padding: 20px 5%; box-shadow: var(--shadow);
+      flex-direction: column; gap: 16px;
+    }
+    .mobile-nav.open { display: flex; }
+    .mobile-nav a { color: var(--text); text-decoration: none; font-size: 1rem; font-weight: 500; padding: 8px 0; border-bottom: 1px solid var(--gray-light); }
+
+    /* ───── RESPONSIVE ───── */
+    @media (max-width: 900px) {
+      .hero-content { grid-template-columns: 1fr; gap: 40px; }
+      .hero-card { display: none; }
+      .doctor-grid { grid-template-columns: 1fr; }
+      .booking-grid { grid-template-columns: 1fr; }
+      .map-grid { grid-template-columns: 1fr; }
+      .footer-grid { grid-template-columns: 1fr 1fr; }
+      .form-row { grid-template-columns: 1fr; }
+    }
+
+    @media (max-width: 600px) {
+      .nav-links, .nav-cta { display: none; }
+      .hamburger { display: flex; }
+      .footer-grid { grid-template-columns: 1fr; }
+      .float-btn.phone { display: flex; }
+      .hero-stats { gap: 20px; }
+      section { padding: 60px 5%; }
+    }
+
+    /* ───── SCROLL ANIMATIONS ───── */
+    .reveal { opacity: 0; transform: translateY(30px); transition: opacity .6s ease, transform .6s ease; }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+    .reveal-delay-1 { transition-delay: .1s; }
+    .reveal-delay-2 { transition-delay: .2s; }
+    .reveal-delay-3 { transition-delay: .3s; }
+  </style>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav id="navbar">
+  <a href="#hero" class="nav-logo">
+    <div class="nav-logo-icon">🐾</div>
+    <div>
+      <div class="nav-logo-text">Amigo Pet</div>
+      <div class="nav-logo-sub">Agropet</div>
+    </div>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#hero">Início</a></li>
+    <li><a href="#servicos">Serviços</a></li>
+    <li><a href="#medico">Veterinário</a></li>
+    <li><a href="#catalogo">Loja</a></li>
+    <li><a href="#localizacao">Contato</a></li>
+  </ul>
+  <a href="#agendamento" class="nav-cta">Agendar Consulta</a>
+  <div class="hamburger" onclick="toggleMenu()">
+    <span></span><span></span><span></span>
+  </div>
+</nav>
+
+<!-- MOBILE NAV -->
+<div class="mobile-nav" id="mobileNav">
+  <a href="#hero" onclick="toggleMenu()">Início</a>
+  <a href="#servicos" onclick="toggleMenu()">Serviços</a>
+  <a href="#medico" onclick="toggleMenu()">Veterinário</a>
+  <a href="#catalogo" onclick="toggleMenu()">Loja</a>
+  <a href="#agendamento" onclick="toggleMenu()">Agendar Consulta</a>
+  <a href="#localizacao" onclick="toggleMenu()">Contato</a>
+</div>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-bg-shapes"></div>
+  <div class="hero-content">
+    <div>
+      <div class="hero-badge">Atendimento Veterinário Completo</div>
+      <h1 class="hero-title">Cuidando do Seu Pet com <span>Dedicação</span> e Carinho</h1>
+      <p class="hero-desc">Oferecemos os melhores cuidados de saúde e produtos para o bem-estar do seu animal. Consultas veterinárias, vacinas, exames e muito mais em Esteio.</p>
+      <div class="hero-btns">
+        <a href="#agendamento" class="btn-primary">📅 Agendar Consulta</a>
+        <a href="#servicos" class="btn-secondary">Ver Serviços</a>
+      </div>
+      <div class="hero-stats">
+        <div class="hero-stat"><strong>100+</strong><span>Consultas/mês</span></div>
+        <div class="hero-stat"><strong>15+</strong><span>Anos de Exp.</span></div>
+        <div class="hero-stat"><strong>100%</strong><span>Satisfação</span></div>
+      </div>
+    </div>
+    <div class="hero-card">
+      <img src="WhatsApp_Image_2026-04-14_at_12_04_58.jpeg" alt="Dr. Lucas Lauxen" class="hero-doc-photo" onerror="this.style.display='none';this.parentElement.style.background='rgba(255,255,255,0.05)';this.parentElement.innerHTML+='<div style=\'display:flex;align-items:center;justify-content:center;height:280px;font-size:80px;\'>👨‍⚕️</div>'"/>
+      <div class="hero-doc-info">
+        <div class="doc-avatar">
+          <img src="WhatsApp_Image_2026-04-14_at_12_04_58.jpeg" alt="Dr. Lucas" onerror="this.style.display='none'"/>
+        </div>
+        <div>
+          <div class="doc-name">Dr. Lucas Lauxen</div>
+          <div class="doc-title">Médico Veterinário</div>
+        </div>
+        <div class="doc-badge">CRMV-RS</div>
+      </div>
+      <div class="hero-features">
+        <div class="hero-feature">Profissional Qualificado</div>
+        <div class="hero-feature">Atendimento Humanizado</div>
+        <div class="hero-feature">Horários Flexíveis</div>
+        <div class="hero-feature">Tratamentos Modernos</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVIÇOS -->
+<section id="servicos">
+  <div class="container">
+    <div class="section-header center reveal">
+      <div class="section-label">🩺 O que oferecemos</div>
+      <h2 class="section-title">Serviços <span>Veterinários</span> Detalhados</h2>
+      <p class="section-desc">Atendimento completo para o seu pet com qualidade, cuidado e tecnologia de ponta.</p>
+    </div>
+    <div class="services-grid">
+      <div class="service-card reveal">
+        <div class="service-icon">🩺</div>
+        <h3>Consulta Veterinária</h3>
+        <p>Atendimento clínico completo com avaliação detalhada da saúde do seu animal. Diagnóstico preciso e tratamento personalizado para cada paciente.</p>
+        <span class="service-tag">Agendamento disponível</span>
+      </div>
+      <div class="service-card reveal reveal-delay-1">
+        <div class="service-icon">💉</div>
+        <h3>Vacinação</h3>
+        <p>Calendário vacinal completo para cães e gatos. Todas as vacinas essenciais para proteger seu pet contra doenças graves e garantir uma vida saudável.</p>
+        <span class="service-tag">Carteirinha atualizada</span>
+      </div>
+      <div class="service-card reveal reveal-delay-2">
+        <div class="service-icon">🔬</div>
+        <h3>Exames Laboratoriais</h3>
+        <p>Exames de sangue, urina, parasitológico e outros testes diagnósticos com agilidade e precisão para detectar problemas rapidamente.</p>
+        <span class="service-tag">Resultados rápidos</span>
+      </div>
+      <div class="service-card reveal reveal-delay-3">
+        <div class="service-icon">🏥</div>
+        <h3>Internação & Emergência</h3>
+        <p>Estrutura completa para internação e atendimento de urgências. Monitoramento contínuo com toda a atenção que seu pet merece.</p>
+        <span class="service-tag">Atendimento dedicado</span>
+      </div>
+      <div class="service-card reveal">
+        <div class="service-icon">💊</div>
+        <h3>Prescrição & Medicamentos</h3>
+        <p>Receituário especializado e acesso a medicamentos veterinários de qualidade. Tratamentos eficazes com acompanhamento do Dr. Lucas.</p>
+        <span class="service-tag">Farmácia própria</span>
+      </div>
+      <div class="service-card reveal reveal-delay-1">
+        <div class="service-icon">🌿</div>
+        <h3>Nutrição & Bem-Estar</h3>
+        <p>Orientação nutricional personalizada para cada fase da vida do seu pet. Rações premium e suplementos disponíveis na loja agropecuária.</p>
+        <span class="service-tag">Loja completa</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MÉDICO -->
+<section id="medico">
+  <div class="container">
+    <div class="doctor-grid">
+      <div class="doctor-photo-wrap reveal">
+        <div class="doctor-photo-bg">
+          <img src="WhatsApp_Image_2026-04-14_at_12_04_58.jpeg" alt="Dr. Lucas Lauxen – Médico Veterinário" onerror="this.style.display='none';this.parentElement.style.display='flex';this.parentElement.style.alignItems='center';this.parentElement.style.justifyContent='center';this.parentElement.style.background='#edf0f7';this.parentElement.innerHTML='<span style=\'font-size:100px\'>👨‍⚕️</span>'"/>
+        </div>
+        <div class="doctor-photo-badge">
+          <strong>+15</strong>
+          <span>anos de experiência</span>
+        </div>
+      </div>
+      <div class="reveal reveal-delay-1">
+        <div class="section-label">👨‍⚕️ Conheça o profissional</div>
+        <h2 class="section-title">Dr. Lucas <span>Lauxen</span></h2>
+        <p style="color:var(--gray); font-size:1rem; line-height:1.7; margin-bottom:24px;">
+          Médico Veterinário com ampla experiência em clínica geral de pequenos animais. Especialista em medicina preventiva, diagnóstico clínico e tratamento de cães e gatos. Com abordagem humanizada e dedicada, o Dr. Lucas oferece um atendimento que une técnica e carinho.
+        </p>
+        <p style="color:var(--gray); font-size:1rem; line-height:1.7; margin-bottom:32px;">
+          Na Amigo Pet Agropet, oferecemos serviços de saúde completos: consultas, vacinas, exames, medicamentos, acessórios e rações a preços para o cliente.
+        </p>
+        <div class="doctor-qualities">
+          <div class="quality-item">
+            <div class="quality-icon">🎓</div>
+            <div class="quality-text">
+              <h4>Formação Sólida</h4>
+              <p>Graduação em Medicina Veterinária com especializações clínicas</p>
+            </div>
+          </div>
+          <div class="quality-item">
+            <div class="quality-icon">❤️</div>
+            <div class="quality-text">
+              <h4>Atendimento Humanizado</h4>
+              <p>Atenção e carinho para cada animal e seu tutor</p>
+            </div>
+          </div>
+          <div class="quality-item">
+            <div class="quality-icon">🔬</div>
+            <div class="quality-text">
+              <h4>Diagnóstico Preciso</h4>
+              <p>Tecnologia e experiência para resultados confiáveis</p>
+            </div>
+          </div>
+          <div class="quality-item">
+            <div class="quality-icon">⭐</div>
+            <div class="quality-text">
+              <h4>Tratamentos Modernos</h4>
+              <p>Protocolos atualizados e melhores práticas da medicina vet.</p>
+            </div>
+          </div>
+        </div>
+        <div style="margin-top:32px;">
+          <a href="#agendamento" class="btn-primary" style="display:inline-flex; align-items:center; gap:8px;">📅 Agendar com Dr. Lucas</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CATÁLOGO -->
+<section id="catalogo">
+  <div class="container">
+    <div class="section-header reveal">
+      <div class="section-label">🛒 Nossa loja</div>
+      <h2 class="section-title">Catálogo da <span>Agropecuária</span></h2>
+      <p class="section-desc">Produtos selecionados para cuidar bem do seu pet. Entrega disponível — entre em contato para pedidos!</p>
+    </div>
+
+    <div class="catalog-tabs reveal">
+      <button class="tab-btn active" onclick="filterCatalog('all', this)">Todos</button>
+      <button class="tab-btn" onclick="filterCatalog('racao', this)">🥩 Rações</button>
+      <button class="tab-btn" onclick="filterCatalog('acessorio', this)">🎾 Acessórios</button>
+      <button class="tab-btn" onclick="filterCatalog('agro', this)">🌾 Produtos Agropecuários</button>
+      <button class="tab-btn" onclick="filterCatalog('med', this)">💊 Medicamentos</button>
+    </div>
+
+    <div class="catalog-grid" id="catalogGrid">
+      <!-- Rações -->
+      <div class="product-card" data-cat="racao">
+        <div class="product-img">🥩<span class="product-badge-new">Popular</span></div>
+        <div class="product-info">
+          <h4>Ração Premium Adultos</h4>
+          <p>Alta digestibilidade, formulada para cães adultos de raças grandes e médias</p>
+          <div class="product-footer">
+            <a href="https://wa.me/5534798829?text=Olá!%20Tenho%20interesse%20na%20Ração%20Premium%20Adultos." target="_blank" class="product-contact-btn">Pedir via WhatsApp</a>
+            <span class="delivery-tag">🚚 Entrega</span>
+          </div>
+        </div>
+      </div>
+      <div class="product-card" data-cat="racao">
+        <div class="product-img">🐱</div>
+        <div class="product-info">
+          <h4>Ração Gatos Castrados</h4>
+          <p>Controle de peso e saúde urinária para gatos castrados de todas as idades</p>
+          <div class="product-footer">
+            <a href="https://wa.me/5534798829?text=Olá!%20Tenho%20interesse%20na%20Ração%20para%20Gatos." target="_blank" class="product-contact-btn">Pedir via WhatsApp</a>
+            <span class="delivery-tag">🚚 Entrega</span>
+          </div>
+        </div>
+      </div>
+      <div class="product-card" data-cat="racao">
+        <div class="product-img">🐶</div>
+        <div class="product-info">
+          <h4>Ração Filhotes</h4>
+          <p>Nutrição completa para o desenvolvimento saudável de filhotes de cães</p>
+          <div class="product-footer">
+            <a href="https://wa.me/5534798829?text=Olá!%20Tenho%20interesse%20na%20Ração%20para%20Filhotes." target="_blank" class="product-contact-btn">Pedir via WhatsApp</a>
+            <span class="delivery-tag">🚚 Entrega</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Acessórios -->
+      <div class="product-card" data-cat="acessorio">
+        <div class="product-img">🦮<span class="product-badge-new">Novo</span></div>
+        <div class="product-info">
+          <h4>Coleira com Plaquinha</h4>
+          <p>Coleiras resistentes e confortáveis com personalização do nome do pet</p>
+          <div class="product-footer">
+            <a href="https://wa.me/5534798829?text=Olá!%20Tenho%20interesse%20na%20Coleira." target="_blank" class="product-contact-btn">Pedir via WhatsApp</a>
+            <span class="delivery-tag">🚚 Entrega</span>
+          </div>
+        </div>
+      </div>
+      <div class="product-card" data-cat="acessorio">
+        <div class="product-img">🏠</div>
+        <div class="product-info">
+          <h4>Camas & Casinhas</h4>
+          <p>Conforto e aconchego para seu pet descansar com segurança e bem-estar</p>
+          <div class="product-footer">
+            <a href="https://wa.me/5534798829?text=Olá!%20Tenho%20interesse%20em%20Camas." target="_blank" class="product-contact-btn">Pedir via WhatsApp</a>
+            <span class="delivery-tag">🚚 Entrega</span>
+          </div>
+        </div>
+      </div>
+      <div class="product-card" data-cat="acessorio">
+        <div class="product-img">🎾</div>
+        <div class="product-info">
+          <h4>Brinquedos & Petiscos</h4>
+          <p>Entretenimento saudável e petiscos nutritivos para cães e gatos</p>
+          <div class="product-footer">
+            <a href="https://wa.me/5534798829?text=Olá!%20Tenho%20interesse%20em%20Brinquedos." target="_blank" class="product-contact-btn">Pedir via WhatsApp</a>
+            <span class="delivery-tag">🚚 Entrega</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Agropecuários -->
+      <div class="product-card" data-cat="agro">
+        <div class="product-img">🌾</div>
+        <div class="product-info">
+          <h4>Suplementos Animais</h4>
+          <p>Vitaminas e minerais para bovinos, suínos e aves para melhor produtividade</p>
+          <div class="product-footer">
+            <a href="https://wa.me/5534798829?text=Olá!%20Tenho%20interesse%20em%20Suplementos." target="_blank" class="product-contact-btn">Pedir via WhatsApp</a>
+            <span class="delivery-tag">🚚 Entrega</span>
+          </div>
+        </div>
+      </div>
+      <div class="product-card" data-cat="agro">
+        <div class="product-img">🐄<span class="product-badge-new">Novo</span></div>
+        <div class="product-info">
+          <h4>Produtos para Bovinos</h4>
+          <p>Linha completa de produtos para saúde e nutrição de bovinos de corte e leite</p>
+          <div class="product-footer">
+            <a href="https://wa.me/5534798829?text=Olá!%20Tenho%20interesse%20em%20Produtos%20Bovinos." target="_blank" class="product-contact-btn">Pedir via WhatsApp</a>
+            <span class="delivery-tag">🚚 Entrega</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Medicamentos -->
+      <div class="product-card" data-cat="med">
+        <div class="product-img">💊</div>
+        <div class="product-info">
+          <h4>Antipulgas & Carrapatos</h4>
+          <p>Produtos pipeta, coleiras e sprays para proteção eficaz contra parasitas</p>
+          <div class="product-footer">
+            <a href="https://wa.me/5534798829?text=Olá!%20Tenho%20interesse%20em%20Antipulgas." target="_blank" class="product-contact-btn">Pedir via WhatsApp</a>
+            <span class="delivery-tag">🚚 Entrega</span>
+          </div>
+        </div>
+      </div>
+      <div class="product-card" data-cat="med">
+        <div class="product-img">🧴</div>
+        <div class="product-info">
+          <h4>Vermífugos & Antiparasitários</h4>
+          <p>Controle completo de vermes internos e externos com produtos de qualidade</p>
+          <div class="product-footer">
+            <a href="https://wa.me/5534798829?text=Olá!%20Tenho%20interesse%20em%20Vermífugos." target="_blank" class="product-contact-btn">Pedir via WhatsApp</a>
+            <span class="delivery-tag">🚚 Entrega</span>
+          </div>
+        </div>
+      </div>
+      <div class="product-card" data-cat="med">
+        <div class="product-img">🩹</div>
+        <div class="product-info">
+          <h4>Medicamentos Prescritos</h4>
+          <p>Farmácia veterinária completa. Disponível mediante prescrição do Dr. Lucas</p>
+          <div class="product-footer">
+            <a href="https://wa.me/5534798829?text=Olá!%20Preciso%20de%20medicamento%20com%20receita." target="_blank" class="product-contact-btn">Consultar</a>
+            <span class="delivery-tag">🚚 Entrega</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Delivery Banner -->
+    <div style="margin-top:40px; background: linear-gradient(135deg, var(--navy), var(--navy-light)); border-radius:20px; padding:32px; display:flex; align-items:center; gap:24px; flex-wrap:wrap;" class="reveal">
+      <div style="font-size:3rem;">🚚</div>
+      <div style="flex:1;">
+        <h3 style="font-family:'Sora',sans-serif; color:white; margin-bottom:6px;">Entregamos na sua residência!</h3>
+        <p style="color:rgba(255,255,255,.75); font-size:.9rem;">Entre em contato pelo WhatsApp, Instagram ou telefone para solicitar sua entrega. Atendemos em Esteio e região!</p>
+      </div>
+      <div style="display:flex; gap:12px; flex-wrap:wrap;">
+        <a href="https://wa.me/5534798829" target="_blank" style="background:#25d366; color:white; padding:12px 22px; border-radius:50px; text-decoration:none; font-weight:700; font-size:.9rem;">WhatsApp</a>
+        <a href="https://instagram.com/amigopetrs" target="_blank" style="background:linear-gradient(45deg,#f09433,#dc2743,#bc1888); color:white; padding:12px 22px; border-radius:50px; text-decoration:none; font-weight:700; font-size:.9rem;">Instagram</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- AGENDAMENTO -->
+<section id="agendamento">
+  <div class="container">
+    <div class="booking-grid">
+      <div class="booking-info reveal">
+        <div class="section-label">📅 Marque sua consulta</div>
+        <h2 class="section-title" style="color:white;">Agende a Consulta do <span>Seu Pet Agora</span></h2>
+        <p class="section-desc" style="margin-bottom:32px;">Preencha o formulário e entraremos em contato para confirmar. Você receberá uma notificação no seu WhatsApp!</p>
+
+        <div class="booking-info-item">
+          <div class="booking-info-icon">📍</div>
+          <div>
+            <h4>Endereço</h4>
+            <p>Rua Santana, 974 – Esteio, RS</p>
+          </div>
+        </div>
+        <div class="booking-info-item">
+          <div class="booking-info-icon">📞</div>
+          <div>
+            <h4>Telefone / WhatsApp</h4>
+            <p>(51) 3479-8829</p>
+          </div>
+        </div>
+        <div class="booking-info-item">
+          <div class="booking-info-icon">✉️</div>
+          <div>
+            <h4>E-mail</h4>
+            <p>amigopetrs@gmail.com</p>
+          </div>
+        </div>
+        <div class="booking-info-item">
+          <div class="booking-info-icon">🕐</div>
+          <div>
+            <h4>Horários de Funcionamento</h4>
+            <div class="hours-grid" style="margin-top:8px;">
+              <div class="hours-item">
+                <div class="day">Seg - Sex</div>
+                <div class="time">08:00–12:00 | 14:00–19:00</div>
+              </div>
+              <div class="hours-item">
+                <div class="day">Sábado</div>
+                <div class="time">08:00–12:00 | 14:00–18:00</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="booking-form reveal reveal-delay-1">
+        <h3 style="font-family:'Sora',sans-serif; color:white; margin-bottom:24px; font-size:1.2rem;">Formulário de Agendamento</h3>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Seu Nome *</label>
+            <input type="text" id="ownerName" placeholder="Nome completo"/>
+          </div>
+          <div class="form-group">
+            <label>Telefone/WhatsApp *</label>
+            <input type="tel" id="ownerPhone" placeholder="(51) 99999-9999"/>
+          </div>
+        </div>
+        <div class="form-group">
+          <label>E-mail</label>
+          <input type="email" id="ownerEmail" placeholder="seu@email.com"/>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Nome do Pet *</label>
+            <input type="text" id="petName" placeholder="Nome do pet"/>
+          </div>
+          <div class="form-group">
+            <label>Espécie *</label>
+            <select id="petType">
+              <option value="">Selecione...</option>
+              <option>Cão</option>
+              <option>Gato</option>
+              <option>Outro</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Raça do Pet</label>
+            <input type="text" id="petBreed" placeholder="Raça do pet"/>
+          </div>
+          <div class="form-group">
+            <label>Serviço Desejado *</label>
+            <select id="service">
+              <option value="">Selecione o serviço</option>
+              <option>Consulta Clínica Geral</option>
+              <option>Vacinação</option>
+              <option>Exames</option>
+              <option>Retorno</option>
+              <option>Outros</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Data Preferida *</label>
+            <input type="date" id="prefDate"/>
+          </div>
+          <div class="form-group">
+            <label>Período Preferido</label>
+            <select id="period">
+              <option value="">Selecione o período</option>
+              <option>Manhã (08:00–12:00)</option>
+              <option>Tarde (14:00–18:00/19:00)</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Mensagem Adicional</label>
+          <textarea id="message" placeholder="Descreva o motivo da consulta ou dúvidas..."></textarea>
+        </div>
+        <button class="submit-btn" onclick="submitBooking()">📲 Agendar via WhatsApp</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- LOCALIZAÇÃO -->
+<section id="localizacao">
+  <div class="container">
+    <div class="map-grid">
+      <div class="reveal">
+        <div class="section-label">📍 Onde estamos</div>
+        <h2 class="section-title">Venha nos <span>Visitar</span></h2>
+        <p style="color:var(--gray); font-size:1rem; line-height:1.7; margin-bottom:32px;">
+          Estamos localizados no coração de Esteio, de fácil acesso e com estacionamento. Venha conhecer nossa estrutura!
+        </p>
+
+        <div class="map-info-item">
+          <div class="map-icon">📍</div>
+          <div>
+            <h4>Endereço</h4>
+            <p>Rua Santana, 974 – Esteio, RS</p>
+          </div>
+        </div>
+        <div class="map-info-item">
+          <div class="map-icon">📞</div>
+          <div>
+            <h4>Telefone</h4>
+            <p>(51) 3479-8829</p>
+          </div>
+        </div>
+        <div class="map-info-item">
+          <div class="map-icon">✉️</div>
+          <div>
+            <h4>E-mail</h4>
+            <p>amigopetrs@gmail.com</p>
+          </div>
+        </div>
+        <div class="map-info-item">
+          <div class="map-icon">🕐</div>
+          <div>
+            <h4>Horários</h4>
+            <p>Seg–Sex: 08:00–12:00 | 14:00–19:00<br>Sáb: 08:00–12:00 | 14:00–18:00</p>
+          </div>
+        </div>
+
+        <div style="display:flex; gap:12px; margin-top:24px; flex-wrap:wrap;">
+          <a href="https://wa.me/5534798829" target="_blank" style="background:#25d366; color:white; padding:11px 22px; border-radius:50px; text-decoration:none; font-weight:700; font-size:.85rem; display:inline-flex; gap:6px; align-items:center;">💬 WhatsApp</a>
+          <a href="https://instagram.com/amigopetrs" target="_blank" style="background:linear-gradient(45deg,#f09433,#dc2743,#bc1888); color:white; padding:11px 22px; border-radius:50px; text-decoration:none; font-weight:700; font-size:.85rem; display:inline-flex; gap:6px; align-items:center;">📸 Instagram</a>
+        </div>
+      </div>
+
+      <div class="map-frame-wrap reveal reveal-delay-1">
+        <iframe
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3454.1!2d-51.177!3d-29.862!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zUnVhIFNhbnRhbmEsIDk3NCwgRXN0ZWlvLCBSUw!5e0!3m2!1spt-BR!2sbr!4v1713123456789!5m2!1spt-BR!2sbr"
+          allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"
+          title="Amigo Pet Agropet - Rua Santana 974, Esteio"
+        ></iframe>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-grid">
+    <div>
+      <div class="footer-logo-text">🐾 Amigo Pet</div>
+      <div class="footer-logo-sub">Agropet</div>
+      <p style="margin-top:12px; max-width:260px;">Cuidando dos seus pets com dedicação, carinho e profissionalismo. Consultas veterinárias e produtos agropecuários em Esteio.</p>
+    </div>
+    <div>
+      <h4>Navegação</h4>
+      <a href="#hero">Início</a>
+      <a href="#servicos">Serviços</a>
+      <a href="#medico">Veterinário</a>
+      <a href="#catalogo">Loja</a>
+      <a href="#agendamento">Agendamento</a>
+    </div>
+    <div>
+      <h4>Serviços</h4>
+      <a href="#servicos">Consulta Veterinária</a>
+      <a href="#servicos">Vacinação</a>
+      <a href="#servicos">Exames</a>
+      <a href="#catalogo">Rações</a>
+      <a href="#catalogo">Medicamentos</a>
+    </div>
+    <div>
+      <h4>Contato</h4>
+      <p>📍 Rua Santana, 974 – Esteio, RS</p>
+      <p>📞 (51) 3479-8829</p>
+      <p>✉️ amigopetrs@gmail.com</p>
+      <p style="margin-top:8px; color:rgba(255,255,255,.5); font-size:.78rem;">Seg–Sex: 08:00–19:00 | Sáb: 08:00–18:00</p>
+      <div style="display:flex; gap:10px; margin-top:16px;">
+        <a href="https://wa.me/5534798829" target="_blank" style="width:36px;height:36px;border-radius:50%;background:#25d366;display:flex;align-items:center;justify-content:center;font-size:1rem;">💬</a>
+        <a href="https://instagram.com/amigopetrs" target="_blank" style="width:36px;height:36px;border-radius:50%;background:linear-gradient(45deg,#f09433,#dc2743);display:flex;align-items:center;justify-content:center;font-size:1rem;">📸</a>
+        <a href="mailto:amigopetrs@gmail.com" style="width:36px;height:36px;border-radius:50%;background:rgba(255,255,255,.1);display:flex;align-items:center;justify-content:center;font-size:1rem;">✉️</a>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span style="color:rgba(255,255,255,.4);">© 2026 Amigo Pet Agropet. Todos os direitos reservados.</span>
+    <span style="color:rgba(255,255,255,.3); font-size:.75rem;">Desenvolvido com ❤️ para pets</span>
+  </div>
+</footer>
+
+<!-- FLOATING BUTTONS -->
+<div class="float-btns">
+  <a href="https://wa.me/5534798829" target="_blank" class="float-btn whatsapp" title="WhatsApp">💬</a>
+  <a href="https://instagram.com/amigopetrs" target="_blank" class="float-btn instagram" title="Instagram">📸</a>
+  <a href="tel:+5534798829" class="float-btn phone" title="Ligar">📞</a>
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast">
+  <div class="toast-icon">✅</div>
+  <div>
+    <h4>Agendamento enviado!</h4>
+    <p>Você será redirecionado ao WhatsApp para confirmar.</p>
+  </div>
+</div>
+
+<script>
+  // ── Navbar scroll ──
+  window.addEventListener('scroll', () => {
+    document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 20);
+  });
+
+  // ── Mobile menu ──
+  function toggleMenu() {
+    document.getElementById('mobileNav').classList.toggle('open');
+  }
+
+  // ── Catalog filter ──
+  function filterCatalog(cat, btn) {
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    document.querySelectorAll('.product-card').forEach(card => {
+      card.style.display = (cat === 'all' || card.dataset.cat === cat) ? '' : 'none';
+    });
+  }
+
+  // ── Booking → WhatsApp ──
+  function submitBooking() {
+    const name = document.getElementById('ownerName').value.trim();
+    const phone = document.getElementById('ownerPhone').value.trim();
+    const pet = document.getElementById('petName').value.trim();
+    const petType = document.getElementById('petType').value;
+    const breed = document.getElementById('petBreed').value.trim();
+    const service = document.getElementById('service').value;
+    const date = document.getElementById('prefDate').value;
+    const period = document.getElementById('period').value;
+    const msg = document.getElementById('message').value.trim();
+
+    if (!name || !phone || !pet || !petType || !service || !date) {
+      alert('Por favor, preencha os campos obrigatórios (*) antes de agendar.');
+      return;
+    }
+
+    const formattedDate = date ? new Date(date + 'T12:00:00').toLocaleDateString('pt-BR') : '—';
+
+    const waMsg = encodeURIComponent(
+`🐾 *AGENDAMENTO – AMIGO PET AGROPET*
+
+👤 *Dados do Tutor:*
+• Nome: ${name}
+• Telefone: ${phone}
+• E-mail: ${document.getElementById('ownerEmail').value || '—'}
+
+🐶 *Dados do Pet:*
+• Nome: ${pet}
+• Espécie: ${petType}
+• Raça: ${breed || '—'}
+
+🩺 *Detalhes do Agendamento:*
+• Serviço: ${service}
+• Data preferida: ${formattedDate}
+• Período: ${period || '—'}
+• Mensagem: ${msg || '—'}
+
+Por favor, confirme disponibilidade!`
+    );
+
+    // Show toast
+    const toast = document.getElementById('toast');
+    toast.classList.add('show');
+    setTimeout(() => toast.classList.remove('show'), 4000);
+
+    setTimeout(() => {
+      window.open(`https://wa.me/5534798829?text=${waMsg}`, '_blank');
+    }, 800);
+  }
+
+  // ── Scroll reveal ──
+  const revealObserver = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); } });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+
+  // ── Set min date for booking ──
+  const dateInput = document.getElementById('prefDate');
+  if (dateInput) {
+    const today = new Date();
+    today.setDate(today.getDate() + 1);
+    dateInput.min = today.toISOString().split('T')[0];
+  }
+</script>
+</body>
+</html>
